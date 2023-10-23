@@ -27,19 +27,22 @@ const TodoItem = ({
     <div
       key={task.id}
       className={
-        "ease-in-out duration-300 todo-item flex justify-between items-center border rounded w-[300px] sm:w-[400px] gap-2 p-6 cursor-pointer hover:border-gray-500"
+        "ease-in-out duration-300 todo-item flex justify-between items-center border rounded w-[300px] sm:w-[400px] gap-2 p-6 hover:border-gray-500"
       }
       style={{
         backgroundImage: `-webkit-linear-gradient(left, #a5dc86 ${task.getCompletionPercentage()}%, transparent ${task.getIrregularPercentage()}%, transparent 100%)`,
       }}
     >
-      <h1 className="truncate" onClick={() => handleAcessSubtask(task)}>
+      <h1
+        className="truncate cursor-pointer"
+        onClick={() => handleAcessSubtask(task)}
+      >
         {task.getTitle()}
       </h1>
       <div className="flex items-center gap-3">
         <input
           type="checkbox"
-          className="w-4 h-4"
+          className="w-4 h-4 cursor-pointer"
           onChange={({ target }) =>
             handleSwitchStatusTask(target.checked, task.id)
           }
@@ -49,14 +52,14 @@ const TodoItem = ({
           {!isSubtask && (
             <>
               <FaTasks />
-              <span>{task.subTasks.length}</span> <span>-</span>
+              <span>{task.getSubTasks().length}</span> <span>-</span>
             </>
           )}
 
           <span>{task.getCompletionPercentage()}%</span>
         </div>
         <AiOutlineClose
-          className="delete-icon hidden"
+          className="delete-icon hidden cursor-pointer"
           onClick={() => handleDeleteTask(task.id)}
         />
       </div>

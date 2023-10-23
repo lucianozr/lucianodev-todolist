@@ -50,9 +50,13 @@ export class Task {
     return this.title;
   }
 
+  getSubTasks() {
+    return this.subTasks.filter((s) => !s.isDeleted);
+  }
+
   getCompletionPercentage(): string {
-    const completedSbTasks: number = this.subTasks.length
-      ? this.subTasks?.reduce((total, subTask: Task) => {
+    const completedSbTasks: number = this.getSubTasks().length
+      ? this.getSubTasks()?.reduce((total, subTask: Task) => {
           if (subTask.isFinished) {
             total += 1;
           }
@@ -61,7 +65,7 @@ export class Task {
         }, 0)
       : 0;
 
-    const totalTasks: number = this.subTasks.length + 1;
+    const totalTasks: number = this.getSubTasks().length + 1;
     let totalFinishedTasks: number = completedSbTasks;
 
     if (this.isFinished) {
@@ -72,8 +76,8 @@ export class Task {
   }
 
   getIrregularPercentage(): string {
-    const completedSbTasks: number = this.subTasks.length
-      ? this.subTasks?.reduce((total, subTask: Task) => {
+    const completedSbTasks: number = this.getSubTasks().length
+      ? this.getSubTasks()?.reduce((total, subTask: Task) => {
           if (subTask.isFinished) {
             total += 1;
           }
@@ -82,7 +86,7 @@ export class Task {
         }, 0)
       : 0;
 
-    const totalTasks: number = this.subTasks.length + 1;
+    const totalTasks: number = this.getSubTasks().length + 1;
     let totalFinishedTasks: number = completedSbTasks;
 
     if (this.isFinished) {
